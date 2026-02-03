@@ -1,0 +1,76 @@
+.section {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: var(--text-invert);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container h2 {
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  margin-bottom: 16px;
+  font-weight: 800;
+  color: var(--text-invert);
+}
+
+.finalSubtitle {
+  font-size: 1.1rem;
+  margin: 16px auto 32px;
+  max-width: 700px;
+  opacity: 0.95;
+}
+
+.finalActions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 12px 26px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: inline-block;
+  color: var(--text-invert);
+}
+
+.button.primary {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.button.primary:hover {
+  background: var(--bg-soft);
+}
+
+.button.secondary {
+  border: 2px solid var(--text-invert);
+  color: var(--text-invert);
+  background: transparent;
+}
+
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 56px 16px;
+  }
+
+  .finalActions {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

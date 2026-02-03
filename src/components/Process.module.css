@@ -1,0 +1,83 @@
+.section {
+  padding: 72px 24px;
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container h2 {
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  margin-bottom: 48px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text);
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: center;
+  margin-top: 48px;
+  position: relative;
+}
+
+.timelineItem {
+  background: var(--card);
+  padding: 28px 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--text);
+  border: 1px solid var(--bg-soft);
+}
+
+.timelineNumber {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--text-invert);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.timelineItem h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.timelineItem p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.timelineConnector {
+  height: 2px;
+  background: rgba(158, 38, 38, 0.4);
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .section {
+    padding: 48px 16px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineConnector {
+    display: block;
+    width: 2px;
+    height: 32px;
+    margin: 0 auto;
+  }
+}

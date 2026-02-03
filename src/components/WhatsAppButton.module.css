@@ -1,0 +1,27 @@
+.whatsapp {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: var(--accent);
+  color: var(--text-invert);
+  padding: 14px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 15px 35px rgba(158, 38, 38, 0.35);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.whatsapp:hover {
+  transform: scale(1.08);
+  box-shadow: 0 20px 50px rgba(158, 38, 38, 0.45);
+}
+
+@media (max-width: 768px) {
+  .whatsapp {
+    left: 16px;
+    right: 16px;
+    text-align: center;
+  }
+}
