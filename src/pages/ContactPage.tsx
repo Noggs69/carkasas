@@ -13,8 +13,7 @@ const ContactPage = () => {
             <div className={styles.contactCard}>
               <div className={styles.icon}>📍</div>
               <h3>Ubicación</h3>
-              <p>[Dirección completa]</p>
-              <p>[Ciudad], [Barrio]</p>
+              <p>Ontinyent - CC El Teler</p>
             </div>
             <div className={styles.contactCard}>
               <div className={styles.icon}>📞</div>
