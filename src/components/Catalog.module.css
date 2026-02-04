@@ -87,6 +87,40 @@
   background: var(--accent);
 }
 
+.categoriesRow {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.categoryButton {
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: 2px solid var(--bg-soft);
+  background: var(--card);
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.categoryButton:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.activeCategory {
+  background: linear-gradient(135deg, var(--accent) 0%, #ff6b9d 100%);
+  color: var(--text-invert);
+  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.5);
+}
+
 .brandsRow {
   display: flex;
   gap: 10px;
@@ -223,8 +257,10 @@
 .productImageSmall {
   width: 100px;
   height: 120px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 12px;
+  background: white;
+  padding: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
@@ -334,8 +370,10 @@
 .infoImage {
   width: 280px;
   height: 340px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 16px;
+  background: white;
+  padding: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 

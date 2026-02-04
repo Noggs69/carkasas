@@ -14,7 +14,7 @@ const ImageSlider = () => {
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=1200&h=400&fit=crop',
+      image: 'https://www.dsmoviles.es/images/fundas-accesorios-moviles-vigo.jpg',
       title: 'Amplio Catálogo',
       subtitle: 'Modelos para todas las marcas',
       link: '/catalogo',
@@ -22,7 +22,7 @@ const ImageSlider = () => {
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1603891219031-7c0e9f5e5e15?w=1200&h=400&fit=crop',
+      image: 'https://m.media-amazon.com/images/I/61I6dyVCKwL.jpg',
       title: 'Instalación Profesional',
       subtitle: 'Servicio experto en tienda',
       link: '/servicios',
@@ -30,7 +30,7 @@ const ImageSlider = () => {
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=1200&h=400&fit=crop',
+      image: 'https://www.dhresource.com/webp/m/0x0/f2/albu/g6/M00/3F/0F/rBVaR1u3_iiAA9zLAAYwjoUA73E227.jpg',
       title: 'Stock Disponible',
       subtitle: 'Llévate tu funda hoy mismo',
       link: '/contacto',
