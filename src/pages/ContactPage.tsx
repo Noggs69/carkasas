@@ -44,6 +44,29 @@ const ContactPage = () => {
               <p>Sábados: 10:00 - 14:00</p>
             </div>
           </div>
+          
+          <div className={styles.mapContainer}>
+            <iframe
+              className={styles.map}
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Centro+Comercial+El+Teler,+Carrer+del+Pintor+Segrelles+1+Ontinyent+46870&zoom=16"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación de la tienda"
+            />
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=Centro+Comercial+El+Teler,+Pintor+Segrelles+1,+Ontinyent,+46870"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mapButton}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/>
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/>
+              </svg>
+              Cómo llegar
+            </a>
+          </div>
         </div>
       </section>
     </main>
