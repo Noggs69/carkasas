@@ -4,10 +4,13 @@
   bottom: 24px;
   background: var(--accent);
   color: var(--text-invert);
-  padding: 14px 18px;
-  border-radius: 999px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  font-weight: 600;
   box-shadow: 0 15px 35px rgba(158, 38, 38, 0.35);
   transition: all 0.3s ease;
   z-index: 100;
@@ -20,8 +23,9 @@
 
 @media (max-width: 768px) {
   .whatsapp {
-    left: 16px;
     right: 16px;
-    text-align: center;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
   }
 }

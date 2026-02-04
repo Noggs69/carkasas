@@ -14,10 +14,6 @@ const Hero = () => {
           Fundas, protectores, cargadores, auriculares y smartwatches.
           Stock real. Asesoramiento honesto. Solución en minutos.
         </p>
-        <div className={styles.heroActions}>
-          <Link className={`${styles.button} ${styles.primary}`} to="/catalogo">Ver nuestro catálogo</Link>
-          <a className={`${styles.button} ${styles.secondary}`} href="https://wa.me/000000000" target="_blank" rel="noopener">Consultar stock</a>
-        </div>
       </div>
     </header>
   )
