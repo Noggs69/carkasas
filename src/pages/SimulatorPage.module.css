@@ -1,0 +1,154 @@
+.page {
+  padding: 120px 24px 48px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.backLink {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.backLink:hover {
+  background: var(--bg-soft);
+}
+
+.brandGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.brandCard {
+  background: var(--card);
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 48px 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.brandCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.brandIcon {
+  height: 80px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: all 0.3s ease;
+}
+
+.brandIcon svg {
+  width: 100%;
+  height: 100%;
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.brandIcon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.brandCard:hover .brandIcon {
+  transform: scale(1.1);
+  color: var(--primary);
+}
+
+.brandCard h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.brandCard span {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.phoneGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.phoneCard {
+  background: var(--card);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 32px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.phoneCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.phoneIcon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.phoneCard h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .brandGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .phoneGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

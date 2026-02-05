@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CatalogPage from './pages/CatalogPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
+import SimulatorPage from './pages/SimulatorPage'
 import WhatsAppButton from './components/WhatsAppButton'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
@@ -20,6 +21,7 @@ function App() {
         <Route path="/catalogo" element={<CatalogPage />} />
         <Route path="/servicios" element={<ServicesPage />} />
         <Route path="/contacto" element={<ContactPage />} />
+        <Route path="/simulador" element={<SimulatorPage />} />
       </Routes>
       <Footer />
       <WhatsAppButton />
