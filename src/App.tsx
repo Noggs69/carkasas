@@ -6,6 +6,8 @@ import CatalogPage from './pages/CatalogPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import WhatsAppButton from './components/WhatsAppButton'
+import ScrollToTop from './components/ScrollToTop'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
         <Route path="/servicios" element={<ServicesPage />} />
         <Route path="/contacto" element={<ContactPage />} />
       </Routes>
+      <Footer />
       <WhatsAppButton />
+      <ScrollToTop />
     </Router>
   )
 }

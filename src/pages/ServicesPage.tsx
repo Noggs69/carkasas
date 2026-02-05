@@ -9,8 +9,8 @@ const ServicesPage = () => {
         <h1>Nuestros Servicios</h1>
         <p>Instalación perfecta y asesoramiento experto</p>
       </div>
-      <Services />
       <Process />
+      <Services />
     </main>
   )
 }

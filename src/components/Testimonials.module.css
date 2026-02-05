@@ -34,6 +34,17 @@
   transform: translateY(-4px);
 }
 
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.star {
+  color: #fbbf24;
+  font-size: 1.2rem;
+}
+
 .quote {
   font-style: italic;
   color: var(--text);
@@ -42,11 +53,53 @@
   font-size: 0.95rem;
 }
 
-.testimonial span {
-  display: block;
+.authorSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.author {
   color: var(--muted);
   font-weight: 600;
   font-size: 0.85rem;
+}
+
+.viewReview {
+  color: var(--accent);
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.viewReview:hover {
+  opacity: 0.7;
+}
+
+.reviewsButton {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.googleButton {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.googleButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {

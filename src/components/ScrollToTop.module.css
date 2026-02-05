@@ -1,0 +1,45 @@
+.scrollButton {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background: var(--card);
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.scrollButton.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scrollButton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.scrollButton:active {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .scrollButton {
+    bottom: 84px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}

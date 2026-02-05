@@ -5,13 +5,17 @@ const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <button 
-      className={styles.toggle} 
-      onClick={toggleTheme}
-      aria-label="Cambiar tema"
-    >
-      {theme === 'light' ? '🌙' : '☀️'}
-    </button>
+    <div className={styles.toggleContainer}>
+      <label className={styles.switch}>
+        <input 
+          type="checkbox" 
+          checked={theme === 'dark'}
+          onChange={toggleTheme}
+          aria-label="Cambiar tema"
+        />
+        <span className={styles.slider}></span>
+      </label>
+    </div>
   )
 }
 

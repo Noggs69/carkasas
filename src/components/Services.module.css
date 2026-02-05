@@ -41,6 +41,19 @@
   border-left: 4px solid var(--accent);
 }
 
+.iconWrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
 .service:hover {
   transform: translateX(8px);
 }

@@ -21,7 +21,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  align-items: center;
+  align-items: stretch;
   margin-top: 48px;
   position: relative;
 }
@@ -33,6 +33,23 @@
   text-align: center;
   color: var(--text);
   border: 1px solid var(--bg-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 240px;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  color: var(--accent);
+  opacity: 0.9;
 }
 
 .timelineNumber {

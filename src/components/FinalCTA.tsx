@@ -6,7 +6,7 @@ const FinalCTA = () => {
     <section id="cta-final" className={styles.section}>
       <div className={styles.container}>
         <h2>¿Listo para proteger tu móvil hoy?</h2>
-        <p className={styles.finalSubtitle}>Pásate por la tienda o consulta por WhatsApp. Te esperamos en [Ciudad], [Barrio].</p>
+        <p className={styles.finalSubtitle}>Pásate por la tienda o consulta por WhatsApp. Te esperamos en Centro Comercial El Teler, Pintor Segrelles, 1 local 114, Ontinyent (46870).</p>
         <div className={styles.finalActions}>
           <a className={`${styles.button} ${styles.primary}`} href="https://wa.me/000000000" target="_blank" rel="noopener">Consultar por WhatsApp</a>
           <Link className={`${styles.button} ${styles.secondary}`} to="/catalogo">Ver catálogo</Link>
