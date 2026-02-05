@@ -7,8 +7,6 @@ const Testimonials = () => {
     { quote: "Excelente servicio y atención al cliente.", author: "Ernesto Calatayud", rating: 5, link: "https://www.google.com/search?sca_esv=f553bdcaa43fd66a&sxsrf=ANbL-n6I-ZN0eF7oD1SkZJd_lswRX4DMKQ:1770278195584&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOZWvP2_am0_Qbd9jcb0imWfpxucVESqpXtdkO2PWmVZPTW6X3IzW6DnD4xHjUPWRhReUc3JlscVdVOBxFKIZ38__KnsU&q=Mascarksas+Rese%C3%B1as&sa=X&ved=2ahUKEwiFnIGY8MGSAxXzKvsDHdOyHuwQ0bkNegQIKxAF&biw=1920&bih=953&dpr=1&aic=0" }
   ]
 
-  const googleReviewsUrl = "https://www.google.com/search?sca_esv=f553bdcaa43fd66a&sxsrf=ANbL-n6I-ZN0eF7oD1SkZJd_lswRX4DMKQ:1770278195584&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOZWvP2_am0_Qbd9jcb0imWfpxucVESqpXtdkO2PWmVZPTW6X3IzW6DnD4xHjUPWRhReUc3JlscVdVOBxFKIZ38__KnsU&q=Mascarksas+Rese%C3%B1as&sa=X&ved=2ahUKEwiFnIGY8MGSAxXzKvsDHdOyHuwQ0bkNegQIKxAF&biw=1920&bih=953&dpr=1&aic=0"
-
   return (
     <section id="prueba" className={styles.section}>
       <div className={styles.container}>
