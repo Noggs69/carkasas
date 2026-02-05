@@ -7,11 +7,13 @@ import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import WhatsAppButton from './components/WhatsAppButton'
 import ScrollToTop from './components/ScrollToTop'
+import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
 import Footer from './components/Footer'
 
 function App() {
   return (
     <Router>
+      <ScrollToTopOnNavigate />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
