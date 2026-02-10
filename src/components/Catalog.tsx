@@ -14,6 +14,7 @@ type Product = {
 }
 
 const Catalog = () => {
+    const [showFilters, setShowFilters] = useState(false);
   const products: Product[] = [
     // Apple iPhone
     { id: 1, name: 'iPhone 11', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', images: ['/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/3_funda_ultra_suave_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/4_funda_reforzada_para_iphone_11.jpg'], price: 0, info: 'Funda de protección completa con diseño elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Transparente', hex: '#f5f5f5' }, { name: 'Rojo', hex: '#dc143c' }] },
@@ -225,53 +226,58 @@ const Catalog = () => {
           <p className={styles.lead}>Selecciona la categoría, marca y modelo para ver los productos.</p>
         </header>
 
-        <div className={styles.categoriesRow}>
-          {['Teléfonos', 'Smartwatch', 'Correas de Smartwatch', 'Auriculares'].map(category => (
-            <button
-              key={category}
-              className={`${styles.categoryButton} ${activeCategory === category ? styles.activeCategory : ''}`}
-              onClick={() => { setActiveCategory(category); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+        <button className={styles.filtersToggle} onClick={() => setShowFilters(f => !f)}>
+          {showFilters ? 'Ocultar filtros ▲' : 'Mostrar filtros ▼'}
+        </button>
 
-        <div className={styles.brandsRow}>
-          {brands.map(brand => (
-            <button
-              key={brand}
-              className={`${styles.brandButton} ${activeBrand === brand ? styles.activeBrand : ''}`}
-              onClick={() => { setActiveBrand(brand); setActiveModelType(''); setSelectedProduct(null) }}
-            >
-              {brand}
-            </button>
-          ))}
-        </div>
-
-        {(activeCategory || activeBrand || activeModelType) && (
-          <div className={styles.clearFiltersRow}>
-            <button
-              className={styles.clearFiltersButton}
-              onClick={() => { setActiveCategory(null); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
-            >
-              ✕ Limpiar filtros
-            </button>
-          </div>
-        )}
-
-        {activeBrand && (
-          <div className={styles.typeRow}>
-            <select
-              className={styles.select}
-              value={activeModelType}
-              onChange={e => setActiveModelType(e.target.value)}
-            >
-              <option value="">Todos los modelos</option>
-              {(brandTypes[activeBrand] || []).map(t => (
-                <option key={t} value={t}>{t}</option>
+        {showFilters && (
+          <div className={styles.filtersBar}>
+            <div className={styles.categoriesRow}>
+              {['Teléfonos', 'Smartwatch', 'Correas de Smartwatch', 'Auriculares'].map(category => (
+                <button
+                  key={category}
+                  className={`${styles.categoryButton} ${activeCategory === category ? styles.activeCategory : ''}`}
+                  onClick={() => { setActiveCategory(category); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
+                >
+                  {category}
+                </button>
               ))}
-            </select>
+            </div>
+            <div className={styles.brandsRow}>
+              {brands.map(brand => (
+                <button
+                  key={brand}
+                  className={`${styles.brandButton} ${activeBrand === brand ? styles.activeBrand : ''}`}
+                  onClick={() => { setActiveBrand(brand); setActiveModelType(''); setSelectedProduct(null) }}
+                >
+                  {brand}
+                </button>
+              ))}
+            </div>
+            {(activeCategory || activeBrand || activeModelType) && (
+              <div className={styles.clearFiltersRow}>
+                <button
+                  className={styles.clearFiltersButton}
+                  onClick={() => { setActiveCategory(null); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
+                >
+                  ✕ Limpiar filtros
+                </button>
+              </div>
+            )}
+            {activeBrand && (
+              <div className={styles.typeRow}>
+                <select
+                  className={styles.select}
+                  value={activeModelType}
+                  onChange={e => setActiveModelType(e.target.value)}
+                >
+                  <option value="">Todos los modelos</option>
+                  {(brandTypes[activeBrand] || []).map(t => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
         )}
 

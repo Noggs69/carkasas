@@ -26,21 +26,55 @@
   margin-bottom: 16px;
   gap: 12px;
   flex-wrap: wrap;
+  transition: max-height 0.3s, opacity 0.3s;
+  max-height: 400px;
+  opacity: 1;
+  overflow: hidden;
 }
 
+.filtersToggle {
+  display: block;
+  margin: 0 auto 16px auto;
+  padding: 10px 24px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+ .filtersToggle:hover {
+  background: var(--accent-dark, #ff3b6b);
+}
 .productCount {
   font-weight: 700;
   color: var(--text);
   font-size: 0.9rem;
 }
 
+
 .searchInput {
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid var(--bg-soft);
   background: transparent;
-  width: 200px;
-  font-size: 0.9rem;
+}
+
+.productImageSmall {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px #0002;
+  background: #fff;
+  border: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
 }
 
 .typeRow {
@@ -255,14 +289,21 @@
 }
 
 .productImageSmall {
-  width: 100px;
-  height: 120px;
+  width: 160px;
+  height: 200px;
   object-fit: contain;
-  border-radius: 12px;
-  background: white;
-  padding: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #0002;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  transition: transform 0.3s cubic-bezier(.4,1.5,.5,1);
+  aspect-ratio: 4/5;
+  max-width: 160px;
+  max-height: 200px;
 }
 
 .productCard:hover .productImageSmall {
@@ -368,13 +409,19 @@
 }
 
 .infoImage {
-  width: 280px;
-  height: 340px;
+  width: 320px;
+  height: 400px;
   object-fit: contain;
-  border-radius: 16px;
-  background: white;
-  padding: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background: #fff;
+  padding: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 4/5;
+  max-width: 320px;
+  max-height: 400px;
 }
 
 .imageCarousel {
@@ -424,29 +471,36 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 28px;
+  align-items: center;
   z-index: 10;
+}
+.imageCarousel {
+  width: 320px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .indicator {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background: #fff;
+  border: 1.5px solid var(--accent, #ff6b9d);
+  margin: 0 4px;
   padding: 0;
-}
-
-.indicator:hover {
-  background: rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
 }
 
 .indicatorActive {
-  background: white;
-  width: 12px;
-  height: 12px;
+  background: var(--accent, #ff6b9d);
+  border-color: var(--accent, #ff6b9d);
 }
 
 .infoPrice {
