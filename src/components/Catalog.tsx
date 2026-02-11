@@ -195,7 +195,14 @@ const Catalog = () => {
 
   // Handlers para FiltroLateral
   const onFiltroChange = (nuevo: Partial<typeof filtros>) => {
-    setFiltros(prev => ({ ...prev, ...nuevo }));
+    setFiltros(prev => {
+      let next = { ...prev, ...nuevo };
+      // Si el filtro de precio viene como array, forzar a [number, number]
+      if (Array.isArray(next.precio) && next.precio.length === 2) {
+        next.precio = [Number(next.precio[0]), Number(next.precio[1])] as [number, number];
+      }
+      return next;
+    });
   };
   const onReset = () => {
     setFiltros({
@@ -280,7 +287,7 @@ const Catalog = () => {
                   marcas={marcas}
                   materiales={materiales}
                   colores={colores}
-                  rangoPrecio={rangoPrecio}
+                  rangoPrecio={rangoPrecio as [number, number]}
                   filtros={filtros}
                   onFiltroChange={onFiltroChange}
                   onReset={onReset}
@@ -294,7 +301,7 @@ const Catalog = () => {
                 marcas={marcas}
                 materiales={materiales}
                 colores={colores}
-                rangoPrecio={rangoPrecio}
+                rangoPrecio={rangoPrecio as [number, number]}
                 filtros={filtros}
                 onFiltroChange={onFiltroChange}
                 onReset={onReset}
