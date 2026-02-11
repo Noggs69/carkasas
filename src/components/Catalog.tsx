@@ -187,7 +187,7 @@ const Catalog = () => {
     marca: null as string | null,
     material: null as string | null,
     colores: [] as string[],
-    precio: rangoPrecio as [number, number],
+    precio: [rangoPrecio[0], rangoPrecio[1]] as [number, number],
   });
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -203,7 +203,7 @@ const Catalog = () => {
       marca: null,
       material: null,
       colores: [],
-      precio: rangoPrecio,
+      precio: [rangoPrecio[0], rangoPrecio[1]],
     });
   };
 

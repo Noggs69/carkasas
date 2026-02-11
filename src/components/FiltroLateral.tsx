@@ -41,25 +41,13 @@ const FiltroLateral: React.FC<FiltroLateralProps> = ({
     colores: true,
     precio: true,
   });
-  const [drawer, setDrawer] = React.useState(false);
 
-  // Responsive: mostrar Drawer en móvil
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   const handleAccordion = (key: keyof typeof open) => {
     setOpen(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  // Swatch visual
-  const Swatch = ({ color, selected, onClick }: { color: { name: string; hex: string }, selected: boolean, onClick: () => void }) => (
-    <button
-      className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-150 ${selected ? 'border-blue-500 ring-2 ring-blue-200' : 'border-gray-300'} focus:outline-none`}
-      style={{ background: color.hex }}
-      title={color.name}
-      aria-label={color.name}
-      onClick={onClick}
-    />
-  );
+
 
   // Slider de precio
   const [localPrecio, setLocalPrecio] = React.useState<[number, number]>(filtros.precio);
