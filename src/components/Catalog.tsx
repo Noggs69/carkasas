@@ -1,5 +1,6 @@
-﻿import { useMemo, useState } from 'react'
-import styles from './Catalog.module.css'
+﻿import { useMemo, useState } from 'react';
+import FiltroLateral from './FiltroLateral';
+import styles from './Catalog.module.css';
 
 type Product = {
   id: number
@@ -12,6 +13,8 @@ type Product = {
   info?: string
   colors: { name: string; hex: string }[]
 }
+
+import { useEffect } from 'react';
 
 const Catalog = () => {
   const products: Product[] = [
@@ -164,216 +167,241 @@ const Catalog = () => {
     { id: 122, name: 'Xiaomi Buds 4 Pro', brand: 'Xiaomi', category: 'Auriculares', image: 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&h=1000&fit=crop', images: ['https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&h=1000&fit=crop'], price: 0, info: 'Auriculares Xiaomi calidad premium', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Blanco', hex: '#ffffff' }] },
   ]
 
-  const brands = useMemo(() => Array.from(new Set(products.map(p => p.brand))), [products])
 
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [activeBrand, setActiveBrand] = useState<string | null>(null)
-  const [activeModelType, setActiveModelType] = useState<string>('')
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
+  // Estado de filtros centralizado
+  const categorias = useMemo(() => Array.from(new Set(products.map(p => p.category))), [products]);
+  const marcas = useMemo(() => Array.from(new Set(products.map(p => p.brand))), [products]);
+  const materiales = useMemo(() => ['Silicona', 'TPU', 'Cuero', 'Plástico', 'Metal'], []); // Ejemplo, puedes ajustar
+  const colores = useMemo(() => {
+    const allColors = products.flatMap(p => p.colors);
+    const unique = Array.from(new Map(allColors.map(c => [c.name, c])).values());
+    return unique;
+  }, [products]);
+  const rangoPrecio = useMemo(() => {
+    const precios = products.map(p => p.price ?? 0);
+    return [Math.min(...precios), Math.max(...precios)];
+  }, [products]);
+
+  const [filtros, setFiltros] = useState({
+    categoria: null as string | null,
+    marca: null as string | null,
+    material: null as string | null,
+    colores: [] as string[],
+    precio: rangoPrecio as [number, number],
+  });
+
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+
+  // Handlers para FiltroLateral
+  const onFiltroChange = (nuevo: Partial<typeof filtros>) => {
+    setFiltros(prev => ({ ...prev, ...nuevo }));
+  };
+  const onReset = () => {
+    setFiltros({
+      categoria: null,
+      marca: null,
+      material: null,
+      colores: [],
+      precio: rangoPrecio,
+    });
+  };
+
+  // Filtrado de productos
+  const filteredProducts = useMemo(() => {
+    let result = products.slice();
+    if (filtros.categoria) result = result.filter(p => p.category === filtros.categoria);
+    if (filtros.marca) result = result.filter(p => p.brand === filtros.marca);
+    if (filtros.material) result = result.filter(p => p.info?.toLowerCase().includes(filtros.material.toLowerCase()));
+    if (filtros.colores.length > 0) result = result.filter(p => p.colors.some(c => filtros.colores.includes(c.name)));
+    result = result.filter(p => {
+      const price = p.price ?? 0;
+      return price >= filtros.precio[0] && price <= filtros.precio[1];
+    });
+    return result;
+  }, [products, filtros]);
 
   const handleNextImage = () => {
     if (selectedProduct && selectedProduct.images) {
-      setCurrentImageIndex((prev) => (prev + 1) % selectedProduct.images.length)
+      setCurrentImageIndex((prev) => (prev + 1) % selectedProduct.images.length);
     }
-  }
-
+  };
   const handlePrevImage = () => {
     if (selectedProduct && selectedProduct.images) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? selectedProduct.images.length - 1 : prev - 1
-      )
+      );
     }
-  }
-
+  };
   const handleProductSelect = (product: Product) => {
-    setSelectedProduct(product)
-    setCurrentImageIndex(0)
-  }
-
-  const brandTypes: Record<string, string[]> = {
-    Apple: ['iPhone 11', 'iPhone 12', 'iPhone 13', 'iPhone 14', 'iPhone 15', 'iPhone 16', 'iPhone 17', 'iPhone SE'],
-    Samsung: ['Galaxy S', 'Galaxy Note', 'Galaxy Z Fold', 'Galaxy Z Flip', 'Galaxy A Series', 'Galaxy M Series'],
-    Xiaomi: ['Xiaomi Mi', 'Redmi Note', 'POCO'],
-    OPPO: ['Find X', 'Find N', 'Reno', 'A Series'],
-    vivo: ['X Series', 'V Series', 'Y Series'],
-    Realme: ['GT', 'Pro Series', 'C Series'],
-    Google: ['Pixel 4a', 'Pixel 5', 'Pixel 6', 'Pixel 7', 'Pixel 8', 'Pixel 9', 'Pixel Fold'],
-    Motorola: ['Moto G', 'Edge', 'Razr'],
-    Sony: ['Xperia 1', 'Xperia 5', 'Xperia 10'],
-    Honor: ['Magic 4', 'Magic 5', 'Magic 6', 'Magic 7', 'X Series', 'N Series'],
-  }
-
-  const filteredProducts = useMemo(() => {
-    let result = products.slice()
-    if (activeCategory) result = result.filter(p => p.category === activeCategory)
-    if (activeBrand) result = result.filter(p => p.brand === activeBrand)
-    if (activeModelType) result = result.filter(p => p.name.includes(activeModelType))
-    return result
-  }, [products, activeCategory, activeBrand, activeModelType])
+    setSelectedProduct(product);
+    setCurrentImageIndex(0);
+  };
 
   const openWhatsApp = (productName: string) => {
     const text = `Hola, quiero consultar el modelo: ${productName}`
     window.open(`https://wa.me/000000000?text=${encodeURIComponent(text)}`, '_blank')
   }
 
+  const [showFilters, setShowFilters] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 900);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.filtersBar}>
-          <header className={styles.sectionHeader}>
-            <h2>¿Tienes tu modelo?</h2>
-            <p className={styles.lead}>Selecciona la categoría, marca y modelo para ver los productos.</p>
-          </header>
-          <div className={styles.categoriesRow}>
-            {['Teléfonos', 'Smartwatch', 'Correas de Smartwatch', 'Auriculares'].map(category => (
-              <button
-                key={category}
-                className={`${styles.categoryButton} ${activeCategory === category ? styles.activeCategory : ''}`}
-                onClick={() => { setActiveCategory(category); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <div className={styles.brandsRow}>
-            {brands.map(brand => (
-              <button
-                key={brand}
-                className={`${styles.brandButton} ${activeBrand === brand ? styles.activeBrand : ''}`}
-                onClick={() => { setActiveBrand(brand); setActiveModelType(''); setSelectedProduct(null) }}
-              >
-                {brand}
-              </button>
-            ))}
-          </div>
-          {(activeCategory || activeBrand || activeModelType) && (
-            <div className={styles.clearFiltersRow}>
-              <button
-                className={styles.clearFiltersButton}
-                onClick={() => { setActiveCategory(null); setActiveBrand(null); setActiveModelType(''); setSelectedProduct(null) }}
-              >
-                ✕ Limpiar filtros
-              </button>
-            </div>
-          )}
-          {activeBrand && (
-            <div className={styles.typeRow}>
-              <select
-                className={styles.select}
-                value={activeModelType}
-                onChange={e => setActiveModelType(e.target.value)}
-              >
-                <option value="">Todos los modelos</option>
-                {(brandTypes[activeBrand] || []).map(t => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </div>
-          )}
-        </div>
-
-        <div className={styles.productsGrid}>
-          {filteredProducts.map(product => (
-            <div 
-              key={product.id} 
-              className={styles.productCard}
-              onClick={() => handleProductSelect(product)}
-            >
-              <div className={styles.productMain}>
-                <div>
-                  <h4>{product.name}</h4>
-                  <p className={styles.brand}>{product.brand}</p>
-                  <div className={styles.colorsRow}>
-                    {product.colors.map((color, idx) => (
-                      <div
-                        key={idx}
-                        className={styles.colorDot}
-                        style={{ backgroundColor: color.hex }}
-                        title={color.name}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <img src={product.image} alt={product.name} className={styles.productImageSmall} />
-              </div>
-
-              <div className={styles.priceRow}>
-                <span className={styles.price}>{product.price ? product.price.toFixed(2) + '€' : ''}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {selectedProduct && (
-          <>
-            <div className={styles.overlay} onClick={() => setSelectedProduct(null)} />
-            <div className={styles.infoBox} role="dialog" aria-labelledby="product-title">
-              <button className={styles.closeButton} onClick={() => setSelectedProduct(null)} aria-label="Cerrar">×</button>
-              <div className={styles.imageCarousel}>
-                {selectedProduct.images && selectedProduct.images.length > 1 && (
-                  <button 
-                    className={`${styles.carouselButton} ${styles.carouselButtonPrev}`}
-                    onClick={handlePrevImage}
-                    aria-label="Imagen anterior"
-                  >
-                    ‹
-                  </button>
-                )}
-                <img 
-                  src={selectedProduct.images ? selectedProduct.images[currentImageIndex] : selectedProduct.image} 
-                  className={styles.infoImage} 
-                  alt={`${selectedProduct.name} - Imagen ${currentImageIndex + 1}`} 
-                />
-                {selectedProduct.images && selectedProduct.images.length > 1 && (
-                  <button 
-                    className={`${styles.carouselButton} ${styles.carouselButtonNext}`}
-                    onClick={handleNextImage}
-                    aria-label="Imagen siguiente"
-                  >
-                    ›
-                  </button>
-                )}
-                {selectedProduct.images && selectedProduct.images.length > 1 && (
-                  <div className={styles.imageIndicators}>
-                    {selectedProduct.images.map((_, idx) => (
-                      <button
-                        key={idx}
-                        className={`${styles.indicator} ${idx === currentImageIndex ? styles.indicatorActive : ''}`}
-                        onClick={() => setCurrentImageIndex(idx)}
-                        aria-label={`Ir a imagen ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className={styles.infoDetails}>
-                <h3 id="product-title">{selectedProduct.name}</h3>
-                <p className={styles.infoPrice}>{selectedProduct.price ? selectedProduct.price.toFixed(2) + '€' : ''}</p>
-                <p className={styles.infoText}>{selectedProduct.info}</p>
-                <div className={styles.colorsSection}>
-                  <p className={styles.colorsLabel}><strong>Colores disponibles:</strong></p>
-                  <div className={styles.colorsGrid}>
-                    {selectedProduct.colors.map((color, idx) => (
-                      <div key={idx} className={styles.colorOption}>
-                        <div
-                          className={styles.colorCircle}
-                          style={{ backgroundColor: color.hex }}
-                        />
-                        <span className={styles.colorName}>{color.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <p className={styles.infoAnnouncement}><strong>Nota:</strong> Todos los colores incluyen la misma protección de calidad premium.</p>
-                <div className={styles.infoActions}>
-                  <button className={styles.button} onClick={() => openWhatsApp(selectedProduct.name)}>Consultar por WhatsApp</button>
-                </div>
-              </div>
-            </div>
-          </>
+        {/* Botón para mostrar filtros en móvil */}
+        {isMobile && (
+          <button className={styles.filtersToggle} onClick={() => setShowFilters(true)}>
+            Filtros
+          </button>
         )}
-
+        {/* Sidebar profesional de filtros */}
+        {(!isMobile || showFilters) && (
+          isMobile ? (
+            <div style={{ position: 'fixed', inset: 0, zIndex: 100 }}>
+              <div
+                style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)' }}
+                onClick={() => setShowFilters(false)}
+              />
+              <div
+                className={styles.filtersBar}
+                style={{ minWidth: 260, maxWidth: 320, height: '100vh', background: '#fff', position: 'relative', zIndex: 101, boxShadow: '2px 0 16px #0002', padding: 24 }}
+                onClick={e => e.stopPropagation()}
+              >
+                <FiltroLateral
+                  categorias={categorias}
+                  marcas={marcas}
+                  materiales={materiales}
+                  colores={colores}
+                  rangoPrecio={rangoPrecio}
+                  filtros={filtros}
+                  onFiltroChange={onFiltroChange}
+                  onReset={onReset}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className={styles.filtersBar} style={{ minWidth: 260, maxWidth: 320 }}>
+              <FiltroLateral
+                categorias={categorias}
+                marcas={marcas}
+                materiales={materiales}
+                colores={colores}
+                rangoPrecio={rangoPrecio}
+                filtros={filtros}
+                onFiltroChange={onFiltroChange}
+                onReset={onReset}
+              />
+            </div>
+          )
+        )}
+        <div style={{ flex: 1 }}>
+          <div className={styles.productsGrid}>
+            {filteredProducts.map(product => (
+              <div 
+                key={product.id} 
+                className={styles.productCard}
+                onClick={() => handleProductSelect(product)}
+              >
+                <div className={styles.productMain}>
+                  <div>
+                    <h4>{product.name}</h4>
+                    <p className={styles.brand}>{product.brand}</p>
+                    <div className={styles.colorsRow}>
+                      {product.colors.map((color, idx) => (
+                        <div
+                          key={idx}
+                          className={styles.colorDot}
+                          style={{ backgroundColor: color.hex }}
+                          title={color.name}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <img src={product.image} alt={product.name} className={styles.productImageSmall} />
+                </div>
+                <div className={styles.priceRow}>
+                  <span className={styles.price}>{product.price ? product.price.toFixed(2) + '€' : ''}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          {selectedProduct && (
+            <>
+              <div className={styles.overlay} onClick={() => setSelectedProduct(null)} />
+              <div className={styles.infoBox} role="dialog" aria-labelledby="product-title">
+                <button className={styles.closeButton} onClick={() => setSelectedProduct(null)} aria-label="Cerrar">×</button>
+                <div className={styles.imageCarousel}>
+                  {selectedProduct.images && selectedProduct.images.length > 1 && (
+                    <button 
+                      className={`${styles.carouselButton} ${styles.carouselButtonPrev}`}
+                      onClick={handlePrevImage}
+                      aria-label="Imagen anterior"
+                    >
+                      ‹
+                    </button>
+                  )}
+                  <img 
+                    src={selectedProduct.images ? selectedProduct.images[currentImageIndex] : selectedProduct.image} 
+                    className={styles.infoImage} 
+                    alt={`${selectedProduct.name} - Imagen ${currentImageIndex + 1}`} 
+                  />
+                  {selectedProduct.images && selectedProduct.images.length > 1 && (
+                    <button 
+                      className={`${styles.carouselButton} ${styles.carouselButtonNext}`}
+                      onClick={handleNextImage}
+                      aria-label="Imagen siguiente"
+                    >
+                      ›
+                    </button>
+                  )}
+                  {selectedProduct.images && selectedProduct.images.length > 1 && (
+                    <div className={styles.imageIndicators}>
+                      {selectedProduct.images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          className={`${styles.indicator} ${idx === currentImageIndex ? styles.indicatorActive : ''}`}
+                          onClick={() => setCurrentImageIndex(idx)}
+                          aria-label={`Ir a imagen ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className={styles.infoDetails}>
+                  <h3 id="product-title">{selectedProduct.name}</h3>
+                  <p className={styles.infoPrice}>{selectedProduct.price ? selectedProduct.price.toFixed(2) + '€' : ''}</p>
+                  <p className={styles.infoText}>{selectedProduct.info}</p>
+                  <div className={styles.colorsSection}>
+                    <p className={styles.colorsLabel}><strong>Colores disponibles:</strong></p>
+                    <div className={styles.colorsGrid}>
+                      {selectedProduct.colors.map((color, idx) => (
+                        <div key={idx} className={styles.colorOption}>
+                          <div
+                            className={styles.colorCircle}
+                            style={{ backgroundColor: color.hex }}
+                          />
+                          <span className={styles.colorName}>{color.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className={styles.infoAnnouncement}><strong>Nota:</strong> Todos los colores incluyen la misma protección de calidad premium.</p>
+                  <div className={styles.infoActions}>
+                    <button className={styles.button} onClick={() => openWhatsApp(selectedProduct.name)}>Consultar por WhatsApp</button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </section>
   )

@@ -1,0 +1,107 @@
+.sidebarFilters {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--card, #fff);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #0001;
+  padding: 24px 18px;
+  min-width: 240px;
+  max-width: 320px;
+  position: sticky;
+  top: 32px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.filterSection {
+  border-bottom: 1px solid var(--bg-soft, #f3f3f3);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: visible;
+  z-index: 21;
+}
+
+.filterSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.filterTitle {
+  font-weight: 700;
+  color: var(--text, #222);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.swatchRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 6px #0001;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swatch.selected {
+  border: 2.5px solid var(--accent, #ff3b6b);
+  box-shadow: 0 0 0 3px #ff3b6b22;
+}
+
+.priceSlider {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.priceInputs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.resetButton {
+  color: var(--accent, #ff3b6b);
+  background: none;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.resetButton:hover {
+  color: #c2185b;
+}
+
+@media (max-width: 900px) {
+  .sidebarFilters {
+    position: static;
+    min-width: 0;
+    max-width: 100vw;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 18px 10px;
+  }
+}
