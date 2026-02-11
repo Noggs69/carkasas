@@ -14,7 +14,6 @@ type Product = {
 }
 
 const Catalog = () => {
-    const [showFilters, setShowFilters] = useState(false);
   const products: Product[] = [
     // Apple iPhone
     { id: 1, name: 'iPhone 11', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', images: ['/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/3_funda_ultra_suave_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/4_funda_reforzada_para_iphone_11.jpg'], price: 0, info: 'Funda de protección completa con diseño elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Transparente', hex: '#f5f5f5' }, { name: 'Rojo', hex: '#dc143c' }] },
