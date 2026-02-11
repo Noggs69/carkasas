@@ -345,28 +345,50 @@ const Catalog = () => {
               <div className={styles.overlay} onClick={() => setSelectedProduct(null)} />
               <div className={styles.infoBox} role="dialog" aria-labelledby="product-title">
                 <button className={styles.closeButton} onClick={() => setSelectedProduct(null)} aria-label="Cerrar">×</button>
-                <div className={styles.imageCarousel}>
+                <div
+                  className={styles.imageCarousel}
+                  onTouchStart={e => {
+                    if (e.touches.length === 1) {
+                      (window as any)._touchStartX = e.touches[0].clientX;
+                    }
+                  }}
+                  onTouchEnd={e => {
+                    const startX = (window as any)._touchStartX;
+                    if (typeof startX === 'number') {
+                      const endX = e.changedTouches[0].clientX;
+                      const diff = endX - startX;
+                      if (Math.abs(diff) > 40) {
+                        if (diff < 0) handleNextImage();
+                        else handlePrevImage();
+                      }
+                      (window as any)._touchStartX = undefined;
+                    }
+                  }}
+                >
                   {selectedProduct.images && selectedProduct.images.length > 1 && (
                     <button 
                       className={`${styles.carouselButton} ${styles.carouselButtonPrev}`}
                       onClick={handlePrevImage}
                       aria-label="Imagen anterior"
+                      style={{ left: 0, background: 'linear-gradient(90deg, rgba(0,0,0,0.6) 60%, transparent)' }}
                     >
-                      ‹
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
                     </button>
                   )}
                   <img 
                     src={selectedProduct.images ? selectedProduct.images[currentImageIndex] : selectedProduct.image} 
                     className={styles.infoImage} 
                     alt={`${selectedProduct.name} - Imagen ${currentImageIndex + 1}`} 
+                    draggable={false}
                   />
                   {selectedProduct.images && selectedProduct.images.length > 1 && (
                     <button 
                       className={`${styles.carouselButton} ${styles.carouselButtonNext}`}
                       onClick={handleNextImage}
                       aria-label="Imagen siguiente"
+                      style={{ right: 0, background: 'linear-gradient(270deg, rgba(0,0,0,0.6) 60%, transparent)' }}
                     >
-                      ›
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </button>
                   )}
                   {selectedProduct.images && selectedProduct.images.length > 1 && (
