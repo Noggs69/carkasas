@@ -6,10 +6,15 @@ import CatalogPage from './pages/CatalogPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import SimulatorPage from './pages/SimulatorPage'
+import MaintenancePage from './pages/MaintenancePage'
 import WhatsAppButton from './components/WhatsAppButton'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
 import Footer from './components/Footer'
+
+
+// Cambia este valor a true para activar el modo mantenimiento global
+const MODO_MANTENIMIENTO = false;
 
 function App() {
   return (
@@ -17,17 +22,26 @@ function App() {
       <ScrollToTopOnNavigate />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalogo" element={<CatalogPage />} />
-        <Route path="/servicios" element={<ServicesPage />} />
-        <Route path="/contacto" element={<ContactPage />} />
-        <Route path="/simulador" element={<SimulatorPage />} />
+        {MODO_MANTENIMIENTO ? (
+          <>
+            <Route path="*" element={<MaintenancePage />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalogo" element={<CatalogPage />} />
+            <Route path="/servicios" element={<ServicesPage />} />
+            <Route path="/contacto" element={<ContactPage />} />
+            <Route path="/simulador" element={<SimulatorPage />} />
+            <Route path="/mantenimiento" element={<MaintenancePage />} />
+          </>
+        )}
       </Routes>
       <Footer />
       <WhatsAppButton />
       <ScrollToTop />
     </Router>
-  )
+  );
 }
 
 export default App
