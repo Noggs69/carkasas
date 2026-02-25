@@ -22,20 +22,12 @@ function App() {
       <ScrollToTopOnNavigate />
       <Navbar />
       <Routes>
-        {MODO_MANTENIMIENTO ? (
-          <>
-            <Route path="*" element={<MaintenancePage />} />
-          </>
-        ) : (
-          <>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalogo" element={<CatalogPage />} />
-            <Route path="/servicios" element={<ServicesPage />} />
-            <Route path="/contacto" element={<ContactPage />} />
-            <Route path="/simulador" element={<SimulatorPage />} />
-            <Route path="/mantenimiento" element={<MaintenancePage />} />
-          </>
-        )}
+        <Route path="/" element={<Home />} />
+        <Route path="/catalogo" element={<MaintenancePage />} />
+        <Route path="/servicios" element={<ServicesPage />} />
+        <Route path="/contacto" element={<ContactPage />} />
+        <Route path="/simulador" element={<SimulatorPage />} />
+        <Route path="/mantenimiento" element={<MaintenancePage />} />
       </Routes>
       <Footer />
       <WhatsAppButton />
