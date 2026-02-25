@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
-import CatalogPage from './pages/CatalogPage'
+// import CatalogPage from './pages/CatalogPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import SimulatorPage from './pages/SimulatorPage'
@@ -13,8 +13,7 @@ import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate'
 import Footer from './components/Footer'
 
 
-// Cambia este valor a true para activar el modo mantenimiento global
-const MODO_MANTENIMIENTO = false;
+// const MODO_MANTENIMIENTO = false;
 
 function App() {
   return (
