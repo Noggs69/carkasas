@@ -11,8 +11,8 @@ const Home = () => {
       <ImageSlider />
       <Hero />
       <main>
-        <Benefits />
         <Testimonials />
+        <Benefits />
         <Promo />
         <FinalCTA />
       </main>

@@ -10,8 +10,7 @@ const Hero = () => {
           <span> instalado perfecto</span>
         </h1>
         <p className={styles.subtitle}>
-          Fundas, protectores, cargadores, auriculares y smartwatches.
-          Stock real. Asesoramiento honesto. Solución en minutos.
+          Carcasas para móviles en Ontinyent. Tienda de fundas en Ontinyent con stock real, asesoramiento honesto y solución en minutos.
         </p>
       </div>
     </header>

@@ -4,7 +4,7 @@ const WhatsAppButton = () => {
   return (
     <a
       className={styles.whatsapp}
-      href="https://wa.me/000000000"
+      href="https://wa.me/34637942667"
       target="_blank"
       rel="noopener"
       aria-label="Consultar stock por WhatsApp"

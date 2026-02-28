@@ -29,8 +29,8 @@ const ContactPage = () => {
                 </svg>
               </div>
               <h3>Teléfono</h3>
-              <p>+34 000 000 000</p>
-              <a href="https://wa.me/000000000" target="_blank" rel="noopener">WhatsApp</a>
+              <p>+34 637 94 26 67</p>
+              <a href="https://wa.me/34637942667" target="_blank" rel="noopener">WhatsApp</a>
             </div>
             <div className={styles.contactCard}>
               <div className={styles.iconBox}>
