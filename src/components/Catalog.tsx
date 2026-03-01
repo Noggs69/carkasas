@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+﻿import { useMemo, useState, useEffect } from 'react';
 import FiltroLateral from './FiltroLateral';
 import styles from './Catalog.module.css';
 
@@ -12,22 +12,20 @@ type Product = {
   price?: number
   info?: string
   colors: { name: string; hex: string }[]
+  materials?: string[]
 }
 
-import { useEffect } from 'react';
-
-const Catalog = () => {
-  const products: Product[] = [
-    // Apple iPhone
-    { id: 1, name: 'iPhone 11', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', images: ['/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/3_funda_ultra_suave_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/4_funda_reforzada_para_iphone_11.jpg'], price: 0, info: 'Funda de protección completa con diseño elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Transparente', hex: '#f5f5f5' }, { name: 'Rojo', hex: '#dc143c' }] },
-    { id: 2, name: 'iPhone 12', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_12/2_funda_personalizada_para_iphone_12.jpg', images: ['/images/carkasas-Apple/iphone_12/2_funda_personalizada_para_iphone_12.jpg', '/images/carkasas-Apple/iphone_12/3_funda_bumper_compatible_con_magsafe_para_iphone_12.jpg', '/images/carkasas-Apple/iphone_12/4_funda_silicona_color_para_iphone_12.jpg'], price: 0, info: 'Funda slim con soporte MagSafe.', colors: [{ name: 'Negro', hex: '#1a1a1a' }, { name: 'Azul', hex: '#1e3a5f' }, { name: 'Verde', hex: '#4a7c59' }] },
-    { id: 3, name: 'iPhone 13', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_13/2_funda_personalizada_para_iphone_13.jpg', images: ['/images/carkasas-Apple/iphone_13/2_funda_personalizada_para_iphone_13.jpg', '/images/carkasas-Apple/iphone_13/3_funda_ultra_suave_para_iphone_13.jpg', '/images/carkasas-Apple/iphone_13/4_funda_brillantes_para_iphone_13.jpg'], price: 0, info: 'Carcasa de silicona premium resistente.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Rosa', hex: '#ffc0cb' }, { name: 'Azul Claro', hex: '#87ceeb' }] },
-    { id: 4, name: 'iPhone 14', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_14/2_funda_personalizada_para_iphone_14.jpg', images: ['/images/carkasas-Apple/iphone_14/2_funda_personalizada_para_iphone_14.jpg', '/images/carkasas-Apple/iphone_14/3_funda_tachas_compatible_con_magsafe_para_iphone_14.jpg', '/images/carkasas-Apple/iphone_14/4_funda_ultra_suave_para_iphone_14.jpg'], price: 0, info: 'Funda antigolpes con bordes reforzados.', colors: [{ name: 'Negro', hex: '#1c1c1e' }, { name: 'Morado', hex: '#9370db' }, { name: 'Blanco', hex: '#f5f5f5' }] },
-    { id: 5, name: 'iPhone 15', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_15/2_funda_personalizada_para_iphone_15.jpg', images: ['/images/carkasas-Apple/iphone_15/2_funda_personalizada_para_iphone_15.jpg', '/images/carkasas-Apple/iphone_15/3_funda_reforzada_antiyellow_para_iphone_15.jpg', '/images/carkasas-Apple/iphone_15/4_funda_ultra_suave_para_iphone_15.jpg'], price: 0, info: 'Funda de cuero sintético elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Marrón', hex: '#8b4513' }, { name: 'Azul Marino', hex: '#000080' }] },
-    { id: 6, name: 'iPhone 16', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_16/2_funda_personalizada_para_iphone_16.jpg', images: ['/images/carkasas-Apple/iphone_16/2_funda_personalizada_para_iphone_16.jpg', '/images/carkasas-Apple/iphone_16/3_funda_ultra_suave_para_iphone_16.jpg', '/images/carkasas-Apple/iphone_16/5_funda_brillantes_para_iphone_16.jpg'], price: 0, info: 'Protección premium con MagSafe integrado.', colors: [{ name: 'Titanio', hex: '#778899' }, { name: 'Oro', hex: '#ffd700' }, { name: 'Negro', hex: '#1a1a1a' }] },
-    { id: 7, name: 'iPhone 17', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_17/2_funda_personalizada_para_iphone_17.jpg', images: ['/images/carkasas-Apple/iphone_17/2_funda_personalizada_para_iphone_17.jpg', '/images/carkasas-Apple/iphone_17/4_funda_reforzada_para_iphone_17.jpg', '/images/carkasas-Apple/iphone_17/5_funda_transparente_antiyellow_compatible_con_magsafe_para_iphone_17.jpg'], price: 0, info: 'Última generación de protección iPhone.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Blanco', hex: '#ffffff' }, { name: 'Azul', hex: '#4169e1' }] },
-    { id: 8, name: 'iPhone SE (2ª Gen)', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_se_2022/2_funda_personalizada_para_iphone_se_2022.jpg', images: ['/images/carkasas-Apple/iphone_se_2022/2_funda_personalizada_para_iphone_se_2022.jpg', '/images/carkasas-Apple/iphone_se_2022/3_funda_silicona_color_para_iphone_se_2022.jpg', '/images/carkasas-Apple/iphone_se_2022/4_funda_ultra_suave_para_iphone_se_2022.jpg'], price: 0, info: 'Funda compacta y resistente.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Rojo', hex: '#ff0000' }] },
-    { id: 9, name: 'iPhone SE (3ª Gen)', brand: 'Apple', category: 'Teléfonos', image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', images: ['https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop'], price: 0, info: 'Protección actualizada para SE.', colors: [{ name: 'Negro', hex: '#1a1a1a' }, { name: 'Blanco', hex: '#f5f5f5' }] },
+export const products: Product[] = [
+  // Apple iPhone
+  { id: 1, name: 'iPhone 11', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', images: ['/images/carkasas-Apple/iphone_11/2_funda_personalizada_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/3_funda_ultra_suave_para_iphone_11.jpg', '/images/carkasas-Apple/iphone_11/4_funda_reforzada_para_iphone_11.jpg'], price: 0, info: 'Funda de protección completa con diseño elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Transparente', hex: '#f5f5f5' }, { name: 'Rojo', hex: '#dc143c' }], materials: ['Silicona', 'TPU', 'Policarbonato'] },
+  { id: 2, name: 'iPhone 12', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_12/2_funda_personalizada_para_iphone_12.jpg', images: ['/images/carkasas-Apple/iphone_12/2_funda_personalizada_para_iphone_12.jpg', '/images/carkasas-Apple/iphone_12/3_funda_bumper_compatible_con_magsafe_para_iphone_12.jpg', '/images/carkasas-Apple/iphone_12/4_funda_silicona_color_para_iphone_12.jpg'], price: 0, info: 'Funda slim con soporte MagSafe.', colors: [{ name: 'Negro', hex: '#1a1a1a' }, { name: 'Azul', hex: '#1e3a5f' }, { name: 'Verde', hex: '#4a7c59' }], materials: ['Silicona', 'TPU'] },
+  { id: 3, name: 'iPhone 13', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_13/2_funda_personalizada_para_iphone_13.jpg', images: ['/images/carkasas-Apple/iphone_13/2_funda_personalizada_para_iphone_13.jpg', '/images/carkasas-Apple/iphone_13/3_funda_ultra_suave_para_iphone_13.jpg', '/images/carkasas-Apple/iphone_13/4_funda_brillantes_para_iphone_13.jpg'], price: 0, info: 'Carcasa de silicona premium resistente.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Rosa', hex: '#ffc0cb' }, { name: 'Azul Claro', hex: '#87ceeb' }], materials: ['Silicona', 'TPU', 'Policarbonato'] },
+  { id: 4, name: 'iPhone 14', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_14/2_funda_personalizada_para_iphone_14.jpg', images: ['/images/carkasas-Apple/iphone_14/2_funda_personalizada_para_iphone_14.jpg', '/images/carkasas-Apple/iphone_14/3_funda_tachas_compatible_con_magsafe_para_iphone_14.jpg', '/images/carkasas-Apple/iphone_14/4_funda_ultra_suave_para_iphone_14.jpg'], price: 0, info: 'Funda antigolpes con bordes reforzados.', colors: [{ name: 'Negro', hex: '#1c1c1e' }, { name: 'Morado', hex: '#9370db' }, { name: 'Blanco', hex: '#f5f5f5' }], materials: ['TPU', 'Policarbonato'] },
+  { id: 5, name: 'iPhone 15', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_15/2_funda_personalizada_para_iphone_15.jpg', images: ['/images/carkasas-Apple/iphone_15/2_funda_personalizada_para_iphone_15.jpg', '/images/carkasas-Apple/iphone_15/3_funda_reforzada_antiyellow_para_iphone_15.jpg', '/images/carkasas-Apple/iphone_15/4_funda_ultra_suave_para_iphone_15.jpg'], price: 0, info: 'Funda de cuero sintético elegante.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Marrón', hex: '#8b4513' }, { name: 'Azul Marino', hex: '#000080' }], materials: ['Cuero sintético', 'TPU'] },
+  { id: 6, name: 'iPhone 16', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_16/2_funda_personalizada_para_iphone_16.jpg', images: ['/images/carkasas-Apple/iphone_16/2_funda_personalizada_para_iphone_16.jpg', '/images/carkasas-Apple/iphone_16/3_funda_ultra_suave_para_iphone_16.jpg', '/images/carkasas-Apple/iphone_16/5_funda_brillantes_para_iphone_16.jpg'], price: 0, info: 'Protección premium con MagSafe integrado.', colors: [{ name: 'Titanio', hex: '#778899' }, { name: 'Oro', hex: '#ffd700' }, { name: 'Negro', hex: '#1a1a1a' }], materials: ['TPU', 'Policarbonato', 'Silicona'] },
+  { id: 7, name: 'iPhone 17', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_17/2_funda_personalizada_para_iphone_17.jpg', images: ['/images/carkasas-Apple/iphone_17/2_funda_personalizada_para_iphone_17.jpg', '/images/carkasas-Apple/iphone_17/4_funda_reforzada_para_iphone_17.jpg', '/images/carkasas-Apple/iphone_17/5_funda_transparente_antiyellow_compatible_con_magsafe_para_iphone_17.jpg'], price: 0, info: 'Última generación de protección iPhone.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Blanco', hex: '#ffffff' }, { name: 'Azul', hex: '#4169e1' }], materials: ['TPU', 'Policarbonato'] },
+  { id: 8, name: 'iPhone SE (2ª Gen)', brand: 'Apple', category: 'Teléfonos', image: '/images/carkasas-Apple/iphone_se_2022/2_funda_personalizada_para_iphone_se_2022.jpg', images: ['/images/carkasas-Apple/iphone_se_2022/2_funda_personalizada_para_iphone_se_2022.jpg', '/images/carkasas-Apple/iphone_se_2022/3_funda_silicona_color_para_iphone_se_2022.jpg', '/images/carkasas-Apple/iphone_se_2022/4_funda_ultra_suave_para_iphone_se_2022.jpg'], price: 0, info: 'Funda compacta y resistente.', colors: [{ name: 'Negro', hex: '#000000' }, { name: 'Rojo', hex: '#ff0000' }], materials: ['Silicona', 'TPU'] },
+  { id: 9, name: 'iPhone SE (3ª Gen)', brand: 'Apple', category: 'Teléfonos', image: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', images: ['https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&h=1000&fit=crop'], price: 0, info: 'Protección actualizada para SE.', colors: [{ name: 'Negro', hex: '#1a1a1a' }, { name: 'Blanco', hex: '#f5f5f5' }], materials: ['TPU', 'Policarbonato'] },
     
     // Samsung
     { id: 10, name: 'Galaxy S10', brand: 'Samsung', category: 'Teléfonos', image: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&h=1000&fit=crop', images: ['https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&h=1000&fit=crop', 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&h=1000&fit=crop'], price: 0, info: 'Funda transparente ultrafina.', colors: [{ name: 'Transparente', hex: '#ffffff' }, { name: 'Negro', hex: '#000000' }] },
@@ -168,20 +166,14 @@ const Catalog = () => {
   ]
 
 
-  // Estado de filtros centralizado
-  const categorias = useMemo(() => Array.from(new Set(products.map(p => p.category))), [products]);
-  const marcas = useMemo(() => Array.from(new Set(products.map(p => p.brand))), [products]);
-  const materiales = useMemo(() => ['Silicona', 'TPU', 'Cuero', 'Plástico', 'Metal'], []); // Ejemplo, puedes ajustar
-  const colores = useMemo(() => {
-    const allColors = products.flatMap(p => p.colors);
-    const unique = Array.from(new Map(allColors.map(c => [c.name, c])).values());
-    return unique;
-  }, [products]);
-  const rangoPrecio = useMemo(() => {
+  // ...existing code...
+// ...existing code...
+const Catalog = () => {
+  // Estado de filtros centralizado y hooks
+  const rangoPrecio = (() => {
     const precios = products.map(p => p.price ?? 0);
     return [Math.min(...precios), Math.max(...precios)];
-  }, [products]);
-
+  })();
   const [filtros, setFiltros] = useState({
     categoria: null as string | null,
     marca: null as string | null,
@@ -189,11 +181,59 @@ const Catalog = () => {
     colores: [] as string[],
     precio: [rangoPrecio[0], rangoPrecio[1]] as [number, number],
   });
-
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-
-  // Handlers para FiltroLateral
+  const categorias = useMemo(() => Array.from(new Set(products.map(p => p.category))), []);
+  const marcas = useMemo(() => Array.from(new Set(products.map(p => p.brand))), []);
+  const materiales = useMemo(() => ['Silicona', 'TPU', 'Cuero', 'Plástico', 'Metal'], []); // Ejemplo, puedes ajustar
+  const colores = useMemo(() => {
+    const allColors = products.flatMap(p => p.colors);
+    const unique = Array.from(new Map(allColors.map(c => [c.name, c])).values());
+    return unique;
+  }, []);
+  const filteredProducts = useMemo(() => {
+    let result = products.slice();
+    if (filtros.categoria) result = result.filter(p => p.category === filtros.categoria);
+    if (filtros.marca) result = result.filter(p => p.brand === filtros.marca);
+    if (filtros.material) result = result.filter(p => p.info?.toLowerCase().includes(filtros.material.toLowerCase()));
+    if (filtros.colores.length > 0) result = result.filter(p => p.colors.some(c => filtros.colores.includes(c.name)));
+    result = result.filter(p => {
+      const price = p.price ?? 0;
+      return price >= filtros.precio[0] && price <= filtros.precio[1];
+    });
+    return result;
+  }, [filtros]);
+  const handleNextImage = () => {
+    if (selectedProduct && selectedProduct.images) {
+      setCurrentImageIndex((prev) => (prev + 1) % selectedProduct.images.length);
+    }
+  };
+  const handlePrevImage = () => {
+    if (selectedProduct && selectedProduct.images) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? selectedProduct.images.length - 1 : prev - 1
+      );
+    }
+  };
+  // const navigate = useNavigate(); // Eliminado porque no se usa
+  const handleProductSelect = (product: Product) => {
+    // Navegar a la página del producto en una nueva pestaña
+    const brandSlug = product.brand.toLowerCase().replace(/ /g, '-');
+    const modelSlug = product.name.toLowerCase().replace(/ /g, '-');
+    window.open(`/catalogo/${brandSlug}/${modelSlug}`, '_blank');
+  };
+  const openWhatsApp = (productName: string) => {
+    const text = `Hola, quiero consultar el modelo: ${productName}`
+    window.open(`https://wa.me/000000000?text=${encodeURIComponent(text)}`, '_blank')
+  }
+  const [showFilters, setShowFilters] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 900);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const onFiltroChange = (nuevo: Partial<typeof filtros>) => {
     setFiltros(prev => {
       let next = { ...prev, ...nuevo };
@@ -213,53 +253,6 @@ const Catalog = () => {
       precio: [rangoPrecio[0], rangoPrecio[1]],
     });
   };
-
-  // Filtrado de productos
-  const filteredProducts = useMemo(() => {
-    let result = products.slice();
-    if (filtros.categoria) result = result.filter(p => p.category === filtros.categoria);
-    if (filtros.marca) result = result.filter(p => p.brand === filtros.marca);
-    if (filtros.material) result = result.filter(p => p.info?.toLowerCase().includes(filtros.material.toLowerCase()));
-    if (filtros.colores.length > 0) result = result.filter(p => p.colors.some(c => filtros.colores.includes(c.name)));
-    result = result.filter(p => {
-      const price = p.price ?? 0;
-      return price >= filtros.precio[0] && price <= filtros.precio[1];
-    });
-    return result;
-  }, [products, filtros]);
-
-  const handleNextImage = () => {
-    if (selectedProduct && selectedProduct.images) {
-      setCurrentImageIndex((prev) => (prev + 1) % selectedProduct.images.length);
-    }
-  };
-  const handlePrevImage = () => {
-    if (selectedProduct && selectedProduct.images) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? selectedProduct.images.length - 1 : prev - 1
-      );
-    }
-  };
-  const handleProductSelect = (product: Product) => {
-    setSelectedProduct(product);
-    setCurrentImageIndex(0);
-  };
-
-  const openWhatsApp = (productName: string) => {
-    const text = `Hola, quiero consultar el modelo: ${productName}`
-    window.open(`https://wa.me/000000000?text=${encodeURIComponent(text)}`, '_blank')
-  }
-
-  const [showFilters, setShowFilters] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 900);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -437,5 +430,3 @@ const Catalog = () => {
 }
 
 export default Catalog
-
-
