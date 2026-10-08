@@ -23,9 +23,9 @@
 
 @media (max-width: 768px) {
   .whatsapp {
-    right: 16px;
-    bottom: 16px;
-    width: 56px;
-    height: 56px;
+    right: 14px;
+    bottom: 14px;
+    width: 52px;
+    height: 52px;
   }
 }

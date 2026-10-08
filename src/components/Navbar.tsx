@@ -1,13 +1,9 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { useTheme } from '../context/ThemeContext'
-import ThemeToggle from './ThemeToggle'
 import styles from './Navbar.module.css'
 
 const Navbar = () => {
-  const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
-  const logoSrc = theme === 'dark' ? '/images/Logo-Modo-Oscuro.png' : '/images/Logo-de-la-tienda.png'
+  const logoSrc = '/images/Logo-de-la-tienda.png'
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -17,25 +13,30 @@ const Navbar = () => {
     setIsOpen(false)
   }
 
+  const goToSection = (sectionId: string) => {
+    closeMenu()
+
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        <Link to="/" className={styles.logo} onClick={closeMenu}>
+        <a href="#inicio" className={styles.logo} onClick={closeMenu}>
           <img src={logoSrc} alt="Logo de la tienda" />
-        </Link>
+        </a>
         
-        <button className={styles.hamburger} onClick={toggleMenu} aria-label="Toggle menu">
+        <button className={styles.hamburger} onClick={toggleMenu} aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}>
           <span className={`${styles.line} ${isOpen ? styles.lineOpen : ''}`}></span>
           <span className={`${styles.line} ${isOpen ? styles.lineOpen : ''}`}></span>
           <span className={`${styles.line} ${isOpen ? styles.lineOpen : ''}`}></span>
         </button>
 
         <div className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`}>
-          <Link to="/" className={styles.link} onClick={closeMenu}>Inicio</Link>
-          <Link to="/catalogo" className={styles.link} onClick={closeMenu}>Catálogo</Link>
-          <Link to="/servicios" className={styles.link} onClick={closeMenu}>Servicios</Link>
-          <Link to="/contacto" className={styles.link} onClick={closeMenu}>Contacto</Link>
-          <ThemeToggle />
+          <button type="button" className={styles.link} onClick={() => goToSection('inicio')}>Inicio</button>
+          <button type="button" className={styles.link} onClick={() => goToSection('fundas')}>Fundas</button>
+          <button type="button" className={styles.link} onClick={() => goToSection('personalizadas')}>Personalizadas</button>
+          <button type="button" className={styles.link} onClick={() => goToSection('tienda-fisica')}>Tienda Física / Contacto</button>
         </div>
       </div>
     </nav>

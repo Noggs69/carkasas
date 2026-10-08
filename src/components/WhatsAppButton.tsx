@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
       className={styles.whatsapp}
       href="https://wa.me/34637942667"
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Consultar stock por WhatsApp"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
